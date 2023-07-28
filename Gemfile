@@ -9,6 +9,9 @@ gem 'rails', '~> 7.0.5'
 # Gemfile
 gem 'devise'
 
+# Gemfile
+gem 'cancancan'
+
 
 gem 'rubocop', '>= 1.0', '< 2.0'
 
