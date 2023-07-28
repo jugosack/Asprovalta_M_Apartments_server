@@ -1,6 +1,23 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Non-nested routes
+  resources :users, except: [:destroy]
+  resources :rooms, except: [:destroy]
+  resources :reservations, except: [:destroy]
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # Nested routes
+  resources :users, only: [] do
+    resources :reservations, only: [:index, :new, :create]
+  end
+
+  resources :rooms, only: [] do
+    resources :reservations, only: [:index, :new, :create]
+    resources :room_daily_prices, only: [:index, :new, :create]
+  end
+
+  # Additional non-nested routes
+  resources :room_daily_prices, only: [:edit, :update, :destroy]
+
+  # Add any other custom routes you may need here
+
+  root 'pages#home' # Change 'pages#home' to the desired controller and action for your application's home page
 end
