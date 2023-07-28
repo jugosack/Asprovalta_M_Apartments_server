@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # Non-nested routes
   resources :users, except: [:destroy]
   resources :rooms, except: [:destroy]
