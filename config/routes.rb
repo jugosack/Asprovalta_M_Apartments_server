@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
+
+
+ 
   # Non-nested routes
   resources :users, except: [:destroy]
   resources :rooms, except: [:destroy]
@@ -21,4 +24,5 @@ Rails.application.routes.draw do
   # Add any other custom routes you may need here
 
   root 'pages#home' # Change 'pages#home' to the desired controller and action for your application's home page
+
 end

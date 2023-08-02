@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: %i[show update]
-
+ 
   def index
     @users = User.all
     render json: @users
@@ -9,6 +10,13 @@ class UsersController < ApplicationController
   def show
     render json: @user
   end
+  # def show
+  #   @user = User.find(params[:id])
+  #   respond_to do |format|
+  #     format.json { render json: { name: @user.name, email: @user.email } }
+  #     format.html { render 'show' }
+  #   end
+  # end
 
   def create
     @user = User.new(user_params)
@@ -19,6 +27,7 @@ class UsersController < ApplicationController
     end
   end
 
+ 
   def update
     if @user.update(user_params)
       render json: @user
@@ -33,6 +42,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+ 
+ 
   def user_params
     params.require(:user).permit(:name, :email)
   end

@@ -6,8 +6,12 @@ ruby '3.0.1'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.5'
 
+gem 'rack-protection'
+
 # Gemfile
 gem 'devise'
+
+gem "turbo-rails"
 
 # Gemfile
 gem 'cancancan'
