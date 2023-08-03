@@ -1,0 +1,17 @@
+
+*) Booking system
+https://github.com/angeluray/hotel-booking-backend
+https://www.youtube.com/watch?v=RkWpJ4XUHuw
+https://github.com/safak/youtube2022/tree/react-booking-ui
+https://www.youtube.com/watch?v=GGfojcHt8OA
+https://www.youtube.com/watch?v=D889P37r3bc&list=PLCawOXF4xaJK1_-KVgXyREULRVy_W_1pe
+https://www.youtube.com/watch?v=BK47E7TMXn0&t=29s
+
+
+*) Stripe
+https://github.com/WebDevSimplified/stripe-checkout-simple
+https://www.youtube.com/watch?v=XKWJFpZYVAQ
+
+*)Devise Rails
+https://www.youtube.com/watch?v=UU09eguVzFE&list=PL6SEI86zExmsdxwsyEQcFpF9DWmvttPPu
+
