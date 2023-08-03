@@ -15,3 +15,9 @@ https://www.youtube.com/watch?v=XKWJFpZYVAQ
 *)Devise Rails
 https://www.youtube.com/watch?v=UU09eguVzFE&list=PL6SEI86zExmsdxwsyEQcFpF9DWmvttPPu
 
+*)Cancan
+https://www.youtube.com/playlist?list=PL6HtmRWwDtYMuIDt4syZdGXWFPZrAWvm_ 
+
+
+*)Rails and React
+https://www.youtube.com/playlist?list=PLY6oTPmKnKbYNIC0Yq3Cc6mgHZrWiZcJU
