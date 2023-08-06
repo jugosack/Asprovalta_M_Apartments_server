@@ -10,13 +10,7 @@ class UsersController < ApplicationController
   def show
     render json: @user
   end
-  # def show
-  #   @user = User.find(params[:id])
-  #   respond_to do |format|
-  #     format.json { render json: { name: @user.name, email: @user.email } }
-  #     format.html { render 'show' }
-  #   end
-  # end
+
 
   def create
     @user = User.new(user_params)
@@ -48,3 +42,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email)
   end
 end
+
