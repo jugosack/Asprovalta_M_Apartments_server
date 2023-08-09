@@ -5,13 +5,6 @@ class Users::SessionsController < Devise::SessionsController
   # skip_before_action :verify_authenticity_token, only: [:destroy] # Skip CSRF protection for sign-out
   skip_before_action :verify_authenticity_token, only: [:destroy, :create] # Skip CSRF protection for sign-in and sign-out
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   sign_out(resource_name) # Devise method for sign-out
-  #   # head :no_content # Return a 204 No Content response
-  #   render json: { message: 'Successfully logged out.' }, status: :ok
-  # end
-
   def respond_with(resource, _opts = {})
     render json: {
       status: { code: 200, message: "User signed in successfully", data: current_user }

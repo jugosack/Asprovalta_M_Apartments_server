@@ -8,9 +8,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   private
 
-  # def user_params
-  #   params.require(:user).permit(:name, :email, :password, :password_confirmation)
-  # end
 
   def respond_with(resource, _opts = {})
     if resource.persisted?
