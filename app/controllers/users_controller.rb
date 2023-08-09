@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
   before_action :set_user, only: %i[show update]
  
@@ -39,7 +40,9 @@ class UsersController < ApplicationController
  
  
   def user_params
-    params.require(:user).permit(:name, :email)
+    # params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+
   end
 end
 

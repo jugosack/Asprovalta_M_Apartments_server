@@ -15,6 +15,7 @@ https://www.youtube.com/watch?v=XKWJFpZYVAQ
 *)Devise Rails
 https://www.youtube.com/watch?v=UU09eguVzFE&list=PL6SEI86zExmsdxwsyEQcFpF9DWmvttPPu
 https://www.youtube.com/playlist?list=PL6SEI86zExmvGeaquocN_umlbhJVhijqG
+https://www.youtube.com/playlist?list=PLPqKsyEGhUnZgOVCVSLDd6gdG5v3V7hZt 
 
 *)Cancan
 https://www.youtube.com/playlist?list=PL6HtmRWwDtYMuIDt4syZdGXWFPZrAWvm_ 
@@ -23,3 +24,6 @@ https://www.youtube.com/playlist?list=PL6HtmRWwDtYMuIDt4syZdGXWFPZrAWvm_
 *)Rails and React
 https://www.youtube.com/playlist?list=PLY6oTPmKnKbYNIC0Yq3Cc6mgHZrWiZcJU
 https://github.com/AlexMercedCoder/railsreactnotesbackend/tree/master 
+
+*) Rails and React Authentication
+https://www.youtube.com/playlist?list=PLgYiyoyNPrv_yNp5Pzsx0A3gQ8-tfg66j 
