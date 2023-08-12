@@ -308,7 +308,9 @@ Devise.setup do |config|
   config.responder.redirect_status = :see_other
 
   # config.navigational_formats = [:html, :json]
+
   config.navigational_formats = []
+
 
   # ==> Configuration for :registerable
 

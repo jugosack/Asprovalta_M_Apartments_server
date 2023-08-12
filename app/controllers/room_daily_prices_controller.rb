@@ -1,4 +1,9 @@
 class RoomDailyPricesController < ApplicationController
+  
+  protect_from_forgery with: :null_session
+
+
+ 
   before_action :authenticate_user!
   before_action :set_room_daily_price, only: %i[show update destroy]
 
@@ -19,6 +24,11 @@ class RoomDailyPricesController < ApplicationController
       render json: @room_daily_price.errors, status: :unprocessable_entity
     end
   end
+
+  
+  
+  
+  
 
   def update
     if @room_daily_price.update(room_daily_price_params)

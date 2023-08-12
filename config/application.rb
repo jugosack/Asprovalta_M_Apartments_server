@@ -24,9 +24,16 @@ module AsprovaltaMApartmentsServer
     # config.eager_load_paths << Rails.root.join("extras")
   config.api_only = true
   # config.middleware.use ActionDispatch::ContentNegotiation, formats: { json: :json }
+ 
+  config.middleware.use ActionDispatch::Flash
+
   config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies
+   
     config.middleware.use config.session_store, config.session_options
+
+  
+
    
     config.action_dispatch.default_headers = {
       'X-Frame-Options' => 'ALLOWALL'
