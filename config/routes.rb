@@ -32,5 +32,19 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :rooms do
+    member do
+      post 'block_dates'
+    end
+  end
+
+  resources :rooms do
+    member do
+      post :unblock_dates
+    end
+  end
+  
+  delete 'reservations/:id', to: 'rooms#destroy_reservation', as: :destroy_reservation
+
   root 'pages#home' # Change 'pages#home' to the desired controller and action for your application's home page
 end

@@ -52,23 +52,48 @@ class ReservationsController < ApplicationController
   #   end
   # end
 
+  # def create
+  #   @reservation = Reservation.new(reservation_params)
+    
+  #   # Calculate total price based on daily room prices
+  #   daily_prices = RoomDailyPrice.where(room_id: @reservation.room_id, date: @reservation.start_date..@reservation.end_date)
+  #   @reservation.total_price = daily_prices.sum(:price)
+    
+  #   if @reservation.save
+  #     render json: @reservation, status: :created
+  #   else
+  #     render json: @reservation.errors, status: :unprocessable_entity
+  #   end
+  # end
+
+  # def update
+  #   if @reservation.update(reservation_params)
+  #     render json: @reservation
+  #   else
+  #     render json: @reservation.errors, status: :unprocessable_entity
+  #   end
+  # end
+  
   def create
     @reservation = Reservation.new(reservation_params)
+  
+    # Calculate the total price based on daily room prices
+    room = Room.find(@reservation.room_id)
+    start_date = @reservation.start_date
+    end_date = @reservation.end_date
+    daily_prices = room.room_daily_prices.where(date: start_date..end_date)
     
-    # Calculate total price based on daily room prices
-    daily_prices = RoomDailyPrice.where(room_id: @reservation.room_id, date: @reservation.start_date..@reservation.end_date)
-    @reservation.total_price = daily_prices.sum(:price)
+    if daily_prices.empty?
+      render json: { error: "No daily prices available for the specified date range" }, status: :unprocessable_entity
+      return
+    end
     
+    num_nights = (end_date - start_date).to_i
+    total_price = num_nights * daily_prices.sum(:price)
+    @reservation.total_price = total_price
+  
     if @reservation.save
       render json: @reservation, status: :created
-    else
-      render json: @reservation.errors, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    if @reservation.update(reservation_params)
-      render json: @reservation
     else
       render json: @reservation.errors, status: :unprocessable_entity
     end

@@ -15,9 +15,8 @@ puts "Users created successfully"
 
 # Create rooms
 Room.create([
-    { name: "Single Room", capacity: 1 },
-    { name: "Double Room", capacity: 2 },
-    { name: "Suite", capacity: 4 }
+    { name: "Studio Jana", capacity: 3 },
+    { name: "Apartment Damjan", capacity: 4 }
   ])
   
   puts "Rooms created successfully"

@@ -1,3 +1,83 @@
+# class RoomsController < ApplicationController
+  
+
+#   protect_from_forgery with: :null_session
+#   skip_before_action :verify_authenticity_token
+#   before_action :authenticate_user!, except: [:check_availability]
+#   before_action :set_room, only: %i[show update]
+  
+  
+
+#   def index
+#     @rooms = Room.all
+#     render json: @rooms
+#   end
+
+#   def show
+#     render json: @room
+#   end
+
+#   def check_availability
+#     begin
+#       start_date = Date.parse(params[:start_date])
+#       end_date = Date.parse(params[:end_date])
+#       capacity = params[:capacity].to_i
+
+#       if start_date >= end_date
+#         render json: { error: "Invalid date range. Start date must be before end date." }, status: :unprocessable_entity
+#         return
+#       end
+
+#       available_rooms = Room.available_rooms(start_date, end_date, capacity)
+
+#       if available_rooms.empty?
+#         render json: { start_date: start_date.to_s, end_date: end_date.to_s, message: "No available rooms for the selected date range. Please check other dates." }
+#       else
+#         render json: { start_date: start_date.to_s, end_date: end_date.to_s, available_rooms: available_rooms }
+#       end
+#     rescue ArgumentError
+#       render json: { error: "Invalid date format. Please provide dates in the format YYYY-MM-DD." }, status: :unprocessable_entity
+#     end
+#   end
+
+
+#   def create
+#     @room = Room.new(room_params)
+#     if @room.save
+#       render json: @room, status: :created
+#     else
+#       render json: @room.errors, status: :unprocessable_entity
+#     end
+#   end
+
+#   def update
+#     if @room.update(room_params)
+#       render json: @room
+#     else
+#       render json: @room.errors, status: :unprocessable_entity
+#     end
+#   end
+
+#   def destroy_reservation
+#     reservation = Reservation.find(params[:id])
+#     if reservation.destroy
+#       render json: { message: "Reservation deleted successfully" }
+#     else
+#       render json: { error: "Failed to delete reservation" }, status: :unprocessable_entity
+#     end
+#   end
+
+#   private
+
+#   def set_room
+#     @room = Room.find(params[:id])
+#   end
+
+#   def room_params
+#     params.require(:room).permit(:name, :capacity)
+#   end
+# end
+
 class RoomsController < ApplicationController
   
 
@@ -17,84 +97,64 @@ class RoomsController < ApplicationController
     render json: @room
   end
 
-#   def check_availability IRB
-#   start_date = Date.parse(params[:start_date])
-#   end_date = Date.parse(params[:end_date])
-#   available_rooms = []
-
-#   Room.find_each do |room|
-#     # Check if the room is available for the given date range
-#     if room.available?(start_date, end_date)
-#       available_rooms << room
-#     end
-#   end
-
-#   Rails.logger.info("Available Rooms: #{available_rooms.inspect}") # Debug output
-
-#   render json: available_rooms
-# end
-
-# def check_availability JSON
-#   # Get the start and end dates from the query string
-#   start_date = params[:start_date]
-#   end_date = params[:end_date]
-
-#   # Check if the rooms are available for the given date range
-#   available_rooms = []
-
-#   Room.find_each do |room|
-#     # Check if the room is available for the given date range
-#     if room.available?(start_date, end_date)
-#       available_rooms << room
-#     end
-#   end
-
-#   # Render the available rooms
-#   render json: available_rooms
-# end
-
-# def check_availability
-#   # Get the start and end dates from the query string
-#   start_date = params[:start_date]
-#   end_date = params[:end_date]
-
-#   # Check if the rooms are available and have a price for the given date range
-#   available_rooms = []
-
-#   Room.find_each do |room|
-#     # Check if the room is available for the given date range
-#     # and has a price associated with it
-#     if room.available?(start_date, end_date) && room.room_daily_prices.exists?
-#       available_rooms << room
-#     end
-#   end
-
-#   # Render the available rooms
-#   render json: available_rooms
-# end
-
-def check_availability
-  # Get the start and end dates from the query string
-  start_date = params[:start_date]
-  end_date = params[:end_date]
-  capacity = params[:capacity]
-
-  # Check if the rooms are available, have a price, and meet the capacity requirement
-  available_rooms = []
-
-  Room.find_each do |room|
-    # Check if the room is available for the given date range,
-    # has a price associated with it, and meets the capacity requirement
-    if room.available?(start_date, end_date) && room.room_daily_prices.exists? && room.capacity >= capacity.to_i
-      available_rooms << room
+  def check_availability
+    begin
+      start_date = Date.strptime(params[:start_date], "%Y-%m-%d")
+      end_date = Date.strptime(params[:end_date], "%Y-%m-%d")
+      capacity = params[:capacity].to_i
+  
+      if start_date >= end_date
+        render json: { error: "Invalid date range. Start date must be before end date." }, status: :unprocessable_entity
+        return
+      end
+  
+      available_rooms = Room.available_rooms(start_date, end_date, capacity)
+  
+      available_rooms = available_rooms.to_a # Convert to an array
+  
+      available_rooms.reject! do |room|
+        blocked_dates_within_range = room.blocked_dates.map { |date| Date.parse(date) }
+        blocked_dates_within_range.any? { |date| date >= start_date && date < end_date }
+      end
+  
+      if available_rooms.empty?
+        render json: { start_date: start_date.to_s, end_date: end_date.to_s, message: "No available rooms for the selected date range. Please check other dates." }
+      else
+        render json: { start_date: start_date.to_s, end_date: end_date.to_s, available_rooms: available_rooms }
+      end
+    rescue ArgumentError
+      render json: { error: "Invalid date format. Please provide dates in the format YYYY-MM-DD." }, status: :unprocessable_entity
+    end
+  end
+  
+  
+  
+  def block_dates
+    @room = Room.find(params[:id])
+    blocked_date = Date.parse(params[:blocked_date]) rescue nil
+  
+    if blocked_date
+      @room.blocked_dates << blocked_date
+      @room.save
+      render json: { message: "Date blocked successfully" }
+    else
+      render json: { error: "Invalid date format. Please provide a date in the format YYYY-MM-DD." }, status: :unprocessable_entity
     end
   end
 
-  # Render the available rooms
-  render json: available_rooms
-end
+  def unblock_dates
+    @room = Room.find(params[:id])
+    unblocked_date = Date.parse(params[:unblocked_date]) rescue nil
 
-
+    if unblocked_date
+      @room.blocked_dates.delete(unblocked_date.to_s)
+      @room.save
+      render json: { message: "Date unblocked successfully" }
+    else
+      render json: { error: "Invalid date format. Please provide a date in the format YYYY-MM-DD." }, status: :unprocessable_entity
+    end
+  end
+  
   def create
     @room = Room.new(room_params)
     if @room.save
@@ -109,6 +169,15 @@ end
       render json: @room
     else
       render json: @room.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy_reservation
+    reservation = Reservation.find(params[:id])
+    if reservation.destroy
+      render json: { message: "Reservation deleted successfully" }
+    else
+      render json: { error: "Failed to delete reservation" }, status: :unprocessable_entity
     end
   end
 

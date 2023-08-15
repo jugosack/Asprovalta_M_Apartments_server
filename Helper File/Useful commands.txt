@@ -3,3 +3,7 @@
 rails db:drop db:create db:migrate
 
 rails dbconsole
+
+rails db:seed
+
+rails server
