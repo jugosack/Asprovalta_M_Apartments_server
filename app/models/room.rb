@@ -24,7 +24,8 @@ class Room < ApplicationRecord
 
     available_rooms = where.not(id: reserved_room_ids).where("capacity >= ?", capacity)
 
+    puts "Available rooms: #{available_rooms.pluck(:name)}"
+    
     available_rooms
   end
-
 end
