@@ -9,6 +9,8 @@ class Reservation < ApplicationRecord
 
   before_save :calculate_total_price
 
+  validate :no_blocked_dates
+
   private
 
   def no_date_overlap
@@ -51,14 +53,23 @@ class Reservation < ApplicationRecord
     daily_prices.compact! # Remove nil values from the array
     average_daily_price = daily_prices.sum / daily_prices.size.to_f
     
-    num_nights = (end_date - start_date).to_i
+    num_nights = (end_date - start_date).to_i # Add 1 to include the end date
+    self.num_nights = num_nights
     self.total_price = num_nights * average_daily_price
   
     puts "Total price calculated: #{total_price}"
   end
+
   
   
   
+  def no_blocked_dates
+    blocked_dates = room.blocked_dates.map(&:to_date)
+
+    if blocked_dates.any? { |date| date >= start_date && date < end_date }
+      errors.add(:base, 'Reservation dates include blocked dates')
+    end
+  end
   
   
 end

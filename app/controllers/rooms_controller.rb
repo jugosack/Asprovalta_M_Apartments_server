@@ -97,44 +97,6 @@ class RoomsController < ApplicationController
     render json: @room
   end
 
-#   def check_availability
-#   begin
-#     start_date = Date.strptime(params[:start_date], "%Y-%m-%d")
-#     end_date = Date.strptime(params[:end_date], "%Y-%m-%d") - 1
-#     capacity = params[:capacity].to_i
-
-#     if start_date >= end_date
-#       render json: { error: "Invalid date range. Start date must be before end date." }, status: :unprocessable_entity
-#       return
-#     end
-
-#     all_rooms = Room.all
-#     available_dates_per_room = {}
-
-#     all_rooms.each do |room|
-#       blocked_dates = room.blocked_dates.map(&:to_date)
-#       reserved_date_ranges = Reservation.where("room_id = ? AND (start_date, end_date) OVERLAPS (?, ?)", room.id, start_date, end_date)
-
-#       available_dates = (start_date..end_date).to_a - blocked_dates
-#       reserved_date_ranges.each do |reserved_date_range|
-#         reserved_start = [reserved_date_range.start_date, start_date].max
-#         reserved_end = [reserved_date_range.end_date, end_date].min
-#         available_dates -= (reserved_start..reserved_end).to_a
-#       end
-
-#       available_dates_per_room[room.name] = available_dates.map(&:to_s) if room.capacity >= capacity
-#     end
-
-#     render json: {
-#       start_date: start_date.to_s,
-#       end_date: end_date.to_s,
-#       available_dates_per_room: available_dates_per_room
-#     }
-#   rescue ArgumentError
-#     render json: { error: "Invalid date format. Please provide dates in the format YYYY-MM-DD." }, status: :unprocessable_entity
-#   end
-# end
-
 def check_availability
   begin
     start_date = Date.strptime(params[:start_date], "%Y-%m-%d")
