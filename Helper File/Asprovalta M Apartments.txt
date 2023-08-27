@@ -11,6 +11,7 @@ https://www.youtube.com/watch?v=BK47E7TMXn0&t=29s
 *) Stripe
 https://github.com/WebDevSimplified/stripe-checkout-simple
 https://www.youtube.com/watch?v=XKWJFpZYVAQ
+https://www.youtube.com/playlist?list=PLflVqQLAWzC9qybF40gPXpzntMQIoYG5u 
 
 *)Devise Rails
 https://www.youtube.com/watch?v=UU09eguVzFE&list=PL6SEI86zExmsdxwsyEQcFpF9DWmvttPPu
