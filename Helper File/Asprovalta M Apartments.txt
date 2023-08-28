@@ -26,5 +26,3 @@ https://www.youtube.com/playlist?list=PL6HtmRWwDtYMuIDt4syZdGXWFPZrAWvm_
 https://www.youtube.com/playlist?list=PLY6oTPmKnKbYNIC0Yq3Cc6mgHZrWiZcJU
 https://github.com/AlexMercedCoder/railsreactnotesbackend/tree/master 
 
-*) Rails and React Authentication
-https://www.youtube.com/playlist?list=PLgYiyoyNPrv_yNp5Pzsx0A3gQ8-tfg66j 
