@@ -7,3 +7,7 @@ rails dbconsole
 rails db:seed
 
 rails server
+
+rails db:schema:load
+
+DROP TABLE table_name;

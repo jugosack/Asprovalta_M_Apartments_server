@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   # Nested routes
   resources :users, only: [] do
-    resources :reservations, only: [:index, :new, :create]
+    resources :reservations, only: [:index, :new, :create, :update]
   end
 
   resources :rooms, only: [] do

@@ -13,6 +13,7 @@ gem 'devise'
 
 gem 'devise-jwt'
 
+gem 'active_storage_base64'
 
 # Gemfile
 gem 'cancancan'

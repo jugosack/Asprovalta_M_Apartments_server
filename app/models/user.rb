@@ -11,6 +11,6 @@ class User < ApplicationRecord
         end
  
          validates :name, presence: true
-
+         has_one_attached :avatar
          has_many :reservations
 end
