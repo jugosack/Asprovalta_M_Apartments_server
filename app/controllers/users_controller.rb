@@ -1,14 +1,12 @@
 # require 'active_storage/blob_invalid'
 
-
 # class UsersController < ApplicationController
-  
+
 #   # skip_before_action :verify_authenticity_token
 #   before_action :authenticate_user!
 #   skip_before_action :verify_authenticity_token, only: [:update]
 #   before_action :set_user, only: %i[show update]
-  
- 
+
 #   def index
 #     @users = User.all
 #     render json: @users
@@ -17,7 +15,6 @@
 #   def show
 #     render json: @user
 #   end
-
 
 #   def create
 #     @user = User.new(user_params)
@@ -28,7 +25,6 @@
 #     end
 #   end
 
- 
 #   # def update
 #   #   if @user.update(user_params)
 #   #     render json: @user
@@ -46,19 +42,19 @@
 
 #   # def update
 #   #   @user = User.find(params[:id])
-  
+
 #   #   if params[:user][:avatar]
 #   #     # Extract the binary data from the base64 content
 #   #     base64_content = params[:user][:avatar][:content]
 #   #     image_data = Base64.decode64(base64_content)
-  
+
 #   #     # Create a new ActiveStorage::Blob object for the avatar image
 #   #     avatar = ActiveStorage::Blob.create_and_upload!(
 #   #       io: StringIO.new(image_data),
 #   #       filename: params[:user][:avatar][:filename],
 #   #       content_type: 'image/jpeg' # Update content type as needed
 #   #     )
-  
+
 #   #     # Attach the avatar image to the user record
 #   #     if @user.avatar.attach(avatar)
 #   #       logger.info("Avatar attached successfully!")
@@ -66,19 +62,17 @@
 #   #       logger.error("Avatar attachment failed: #{avatar.errors.full_messages.join(', ')}")
 #   #     end
 #   #   end
-  
+
 #   #   if @user.update(user_params)
 #   #     render json: @user
 #   #   else
 #   #     render json: @user.errors, status: :unprocessable_entity
 #   #   end
 #   # end
-  
 
-  
 #   def update
 #     @user = User.find(params[:id])
-  
+
 #     if params[:user][:avatar]
 #       # Create a new ActiveStorage::UploadedFile object from the base64 content
 #       avatar_file = ActiveStorage::UploadedFile.new(
@@ -86,11 +80,11 @@
 #         content_type: params[:user][:avatar][:content_type],
 #         tempfile: StringIO.new(Base64.decode64(params[:user][:avatar][:content]))
 #       )
-  
+
 #       # Create a new ActiveStorage::Blob object from the uploaded file
 #       avatar = ActiveStorage::Blob.create_from_uploaded_file!(avatar_file, io: StringIO.new(Base64.decode64(params[:user][:avatar][:content]))
 #       )
-  
+
 #       # Check to see if the avatar image is valid
 #       if avatar.valid?
 #         # Attach the avatar image to the user record
@@ -100,37 +94,17 @@
 #         render json: { errors: avatar.errors.full_messages }, status: :unprocessable_entity
 #       end
 #     end
-  
+
 #     # Update the user record
 #     if @user.update(user_params)
 #       render json: @user
 #     else
 #       render json: @user.errors, status: :unprocessable_entity
 #     end
-  
+
 #   rescue ActiveStorage::BlobInvalid => e
 #     render json: { errors: [e.message] }, status: :unprocessable_entity
 #   end
-  
-  
-  
-  
-  
-  
-  
-
-    
-  
-
-
-
-
-
-  
-
-  
-  
-
 
 #   private
 
@@ -138,8 +112,6 @@
 #     @user = User.find(params[:id])
 #   end
 
-    
- 
 #   def user_params
 #     # params.require(:user).permit(:name, :email)
 #     params.require(:user).permit(:name, :email, :password, :password_confirmation,  avatar: [:content, :filename])
@@ -152,7 +124,6 @@
 
 # end
 
-  
 # end
 
 class UsersController < ApplicationController
@@ -186,7 +157,7 @@ class UsersController < ApplicationController
         filename: params[:user][:avatar][:filename],
         content_type: params[:user][:avatar][:content_type]
       )
-  
+
       # Attach the avatar image to the user record
       if @user.avatar.attach(avatar)
         render json: @user.as_json(methods: [:avatar])
@@ -203,7 +174,6 @@ class UsersController < ApplicationController
   rescue => e
     render json: { errors: [e.message] }, status: :unprocessable_entity
   end
-  
 
   private
 

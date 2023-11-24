@@ -5,9 +5,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
   skip_before_action :verify_authenticity_token, only: [:create]
   respond_to :json
-  
-  private
 
+  private
 
   def respond_with(resource, _opts = {})
     if resource.persisted?

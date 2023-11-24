@@ -6,11 +6,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
-       def jwt_payload
-          super
-        end
- 
-         validates :name, presence: true
-         has_one_attached :avatar
-         has_many :reservations
+  def jwt_payload
+    super
+  end
+
+  validates :name, presence: true
+  has_one_attached :avatar
+  has_many :reservations
 end

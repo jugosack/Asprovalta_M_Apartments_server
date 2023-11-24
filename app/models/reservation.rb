@@ -32,7 +32,7 @@ class Reservation < ApplicationRecord
 
   def no_nil_or_blank_or_zero_room_prices
     daily_prices = room.room_daily_prices.where(date: start_date..(end_date - 1.day))
-    
+
     if daily_prices.size != (end_date - start_date).to_i
       errors.add(:base, 'Not all dates have valid room prices available')
     elsif daily_prices.any? { |price| price.nil? || price.zero? }
@@ -42,27 +42,24 @@ class Reservation < ApplicationRecord
 
   def calculate_total_price
     puts "Calculating total price..."
-    
+
     daily_prices = room.room_daily_prices.where(date: start_date..end_date).pluck(:price)
-    
+
     if daily_prices.any?(&:nil?) || daily_prices.all?(&:zero?)
       errors.add(:base, 'No valid daily prices available for the specified date range')
       return false
     end
-    
+
     daily_prices.compact! # Remove nil values from the array
     average_daily_price = daily_prices.sum / daily_prices.size.to_f
-    
+
     num_nights = (end_date - start_date).to_i # Add 1 to include the end date
     self.num_nights = num_nights
     self.total_price = num_nights * average_daily_price
-  
+
     puts "Total price calculated: #{total_price}"
   end
 
-  
-  
-  
   def no_blocked_dates
     blocked_dates = room.blocked_dates.map(&:to_date)
 
@@ -70,7 +67,4 @@ class Reservation < ApplicationRecord
       errors.add(:base, 'Reservation dates include blocked dates')
     end
   end
-  
-  
 end
-
