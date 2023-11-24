@@ -28,7 +28,7 @@ class ReservationsController < ApplicationController
         @reservations = @user.reservations
         render json: @reservations
       else
-        render json: { error: "Access denied" }, status: :unauthorized
+        render json: { error: 'Access denied' }, status: :unauthorized
       end
     else
       @reservations = Reservation.all
@@ -81,7 +81,7 @@ class ReservationsController < ApplicationController
     daily_prices = room.room_daily_prices.where(date: start_date..end_date)
 
     if daily_prices.empty?
-      render json: { error: "No daily prices available for the specified date range" }, status: :unprocessable_entity
+      render json: { error: 'No daily prices available for the specified date range' }, status: :unprocessable_entity
       return
     end
 

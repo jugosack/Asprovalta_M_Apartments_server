@@ -1,6 +1,6 @@
 class RoomDailyPrice < ApplicationRecord
   belongs_to :room
   def zero?
-    return price == 0
+    price.zero?
   end
 end

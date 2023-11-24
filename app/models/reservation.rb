@@ -19,15 +19,15 @@ class Reservation < ApplicationRecord
       '(start_date, end_date) OVERLAPS (?, ?)', start_date, end_date
     )
 
-    if overlapping_reservations.any?
-      errors.add(:base, 'Reservation dates overlap with existing reservation')
-    end
+    return unless overlapping_reservations.any?
+
+    errors.add(:base, 'Reservation dates overlap with existing reservation')
   end
 
   def start_date_cannot_be_in_the_past
-    if start_date && start_date < Date.today
-      errors.add(:start_date, 'Start date cannot be in the past')
-    end
+    return unless start_date && start_date < Date.today
+
+    errors.add(:start_date, 'Start date cannot be in the past')
   end
 
   def no_nil_or_blank_or_zero_room_prices
@@ -41,7 +41,7 @@ class Reservation < ApplicationRecord
   end
 
   def calculate_total_price
-    puts "Calculating total price..."
+    puts 'Calculating total price...'
 
     daily_prices = room.room_daily_prices.where(date: start_date..end_date).pluck(:price)
 
@@ -63,8 +63,8 @@ class Reservation < ApplicationRecord
   def no_blocked_dates
     blocked_dates = room.blocked_dates.map(&:to_date)
 
-    if blocked_dates.any? { |date| date >= start_date && date < end_date }
-      errors.add(:base, 'Reservation dates include blocked dates')
-    end
+    return unless blocked_dates.any? { |date| date >= start_date && date < end_date }
+
+    errors.add(:base, 'Reservation dates include blocked dates')
   end
 end

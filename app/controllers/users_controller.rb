@@ -129,7 +129,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token, only: [:update]
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: %i[show update]
 
   def index
     @users = User.all
@@ -164,14 +164,12 @@ class UsersController < ApplicationController
       else
         render json: { errors: @user.avatar.errors.full_messages }, status: :unprocessable_entity
       end
+    elsif @user.update(user_params)
+      render json: @user
     else
-      if @user.update(user_params)
-        render json: @user
-      else
-        render json: @user.errors, status: :unprocessable_entity
-      end
+      render json: @user.errors, status: :unprocessable_entity
     end
-  rescue => e
+  rescue StandardError => e
     render json: { errors: [e.message] }, status: :unprocessable_entity
   end
 
