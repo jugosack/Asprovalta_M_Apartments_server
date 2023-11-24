@@ -267,6 +267,8 @@ Devise.setup do |config|
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
+  
+  config.skip_session_storage = [:http_auth, :params_auth, :json] # Add :json here
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
@@ -305,9 +307,24 @@ Devise.setup do |config|
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
 
+  # config.navigational_formats = [:html, :json]
+
+  config.navigational_formats = []
+
+
   # ==> Configuration for :registerable
 
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
+    jwt.dispatch_requests = [
+      ['POST', %r{^/users/sign_in}],
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/users/sign_out}],
+    ]
+    jwt.expiration_time = 120.minutes.to_i
+  end
 end

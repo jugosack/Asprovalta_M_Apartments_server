@@ -1,0 +1,30 @@
+
+*) Booking system
+https://github.com/angeluray/hotel-booking-backend
+https://www.youtube.com/watch?v=RkWpJ4XUHuw
+https://github.com/safak/youtube2022/tree/react-booking-ui
+https://www.youtube.com/watch?v=GGfojcHt8OA
+https://www.youtube.com/watch?v=D889P37r3bc&list=PLCawOXF4xaJK1_-KVgXyREULRVy_W_1pe
+https://www.youtube.com/watch?v=BK47E7TMXn0&t=29s
+
+
+*) Stripe
+https://github.com/WebDevSimplified/stripe-checkout-simple
+https://www.youtube.com/watch?v=XKWJFpZYVAQ
+https://www.youtube.com/playlist?list=PLflVqQLAWzC9qybF40gPXpzntMQIoYG5u 
+
+*)Devise Rails
+https://www.youtube.com/watch?v=UU09eguVzFE&list=PL6SEI86zExmsdxwsyEQcFpF9DWmvttPPu
+https://www.youtube.com/playlist?list=PL6SEI86zExmvGeaquocN_umlbhJVhijqG
+https://www.youtube.com/playlist?list=PLPqKsyEGhUnZgOVCVSLDd6gdG5v3V7hZt 
+
+*)Cancan
+https://www.youtube.com/playlist?list=PL6HtmRWwDtYMuIDt4syZdGXWFPZrAWvm_ 
+
+
+*)Rails and React
+https://www.youtube.com/playlist?list=PLY6oTPmKnKbYNIC0Yq3Cc6mgHZrWiZcJU
+https://github.com/AlexMercedCoder/railsreactnotesbackend/tree/master 
+
+*) Rails and React Authentication
+https://www.youtube.com/playlist?list=PLgYiyoyNPrv_yNp5Pzsx0A3gQ8-tfg66j 

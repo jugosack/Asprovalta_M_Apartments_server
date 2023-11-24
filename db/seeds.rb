@@ -5,3 +5,19 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+user=User.create(name: "Jugoslav", email: "jugoslav@yahoo.com",password: "123456",password_confirmation: "123456")
+user=User.create(name: "Marija", email: "marija@yahoo.com",password: "123456",password_confirmation: "123456")
+user=User.create(name: "Damjan", email: "damjan@yahoo.com",password: "123456",password_confirmation: "123456")
+user=User.create(name: "Jana", email: "jana@yahoo.com",password: "123456",password_confirmation: "123456")
+
+puts "Users created successfully"
+# db/seeds.rb
+
+# Create rooms
+Room.create([
+    { name: "Studio Jana", capacity: 3 },
+    { name: "Apartment Damjan", capacity: 4 }
+  ])
+  
+  puts "Rooms created successfully"
+  

@@ -1,4 +1,7 @@
 class RoomDailyPricesController < ApplicationController
+  protect_from_forgery with: :null_session
+
+  before_action :authenticate_user!
   before_action :set_room_daily_price, only: %i[show update destroy]
 
   def index
