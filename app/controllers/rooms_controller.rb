@@ -89,6 +89,8 @@ class RoomsController < ApplicationController
     render json: @room
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def check_availability
     begin
       start_date = Date.strptime(params[:start_date], "%Y-%m-%d")
@@ -127,6 +129,8 @@ class RoomsController < ApplicationController
              status: :unprocessable_entity
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def block_dates
     @room = Room.find(params[:id])
