@@ -89,8 +89,6 @@ class RoomsController < ApplicationController
     render json: @room
   end
 
-  # # rubocop:disable Metrics/CyclomaticComplexity
-  # # rubocop:disable Metrics/PerceivedComplexity
   # def check_availability
   #   start_date = Date.strptime(params[:start_date], '%Y-%m-%d')
   #   end_date = Date.strptime(params[:end_date], '%Y-%m-%d')
@@ -156,7 +154,7 @@ class RoomsController < ApplicationController
         blocked_dates = room.blocked_dates.map(&:to_date)
         reserved_date_ranges = Reservation.where('room_id = ? AND (start_date, end_date) OVERLAPS (?, ?)', room.id,
                                                  date, date)
-
+        # rubocop:disable Style/Next
         if room.capacity >= capacity && !(blocked_dates.include?(date) || reserved_date_ranges.present?)
           daily_price = RoomDailyPrice.find_by(room_id: room.id, date: date)&.price
 
@@ -172,6 +170,7 @@ class RoomsController < ApplicationController
             }
           end
         end
+        # rubocop:enable Style/Next
       end
     end
 
