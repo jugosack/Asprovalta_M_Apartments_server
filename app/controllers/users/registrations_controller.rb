@@ -4,7 +4,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   skip_before_action :verify_authenticity_token, only: [:create]
   respond_to :json
 
+  before_action :configure_permitted_parameters
+
   private
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation, :phone_number])
+  end
 
   def respond_with(resource, _opts = {})
     if resource.persisted?
