@@ -9,7 +9,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def configure_permitted_parameters
+    # rubocop:disable Style/SymbolArray
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation, :phone_number])
+    # rubocop:enable Style/SymbolArray
   end
 
   def respond_with(resource, _opts = {})
