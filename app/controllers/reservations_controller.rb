@@ -2,25 +2,6 @@ class ReservationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_reservation, only: %i[show update]
 
-  # def index
-  #   @reservations = Reservation.all
-
-  #   @user = User.find(params[:user_id])  # Find the user by user_id parameter
-  #   @reservations = @user.reservations   # Fetch reservations for the specific user
-
-  #   render json: @reservations
-  # end
-
-  # def index
-  #   if params[:user_id]
-  #     @user = User.find(params[:user_id])
-  #     @reservations = @user.reservations
-  #   else
-  #     @reservations = Reservation.all
-  #   end
-  #   render json: @reservations
-  # end
-
   def index
     if params[:user_id]
       @user = User.find(params[:user_id])
@@ -40,39 +21,12 @@ class ReservationsController < ApplicationController
     render json: @reservation
   end
 
-  # def create
-  #   @reservation = Reservation.new(reservation_params)
-  #   if @reservation.save
-  #     render json: @reservation, status: :created
-  #   else
-  #     render json: @reservation.errors, status: :unprocessable_entity
-  #   end
-  # end
-
-  # def create
-  #   @reservation = Reservation.new(reservation_params)
-
-  #   # Calculate total price based on daily room prices
-  #   daily_prices = RoomDailyPrice.where(room_id: @reservation.room_id, date: @reservation.start_date..@reservation.end_date)
-  #   @reservation.total_price = daily_prices.sum(:price)
-
-  #   if @reservation.save
-  #     render json: @reservation, status: :created
-  #   else
-  #     render json: @reservation.errors, status: :unprocessable_entity
-  #   end
-  # end
-
-  # def update
-  #   if @reservation.update(reservation_params)
-  #     render json: @reservation
-  #   else
-  #     render json: @reservation.errors, status: :unprocessable_entity
-  #   end
-  # end
-
   def create
     @reservation = Reservation.new(reservation_params)
+
+    # Access the user name from reservation_params
+    user_name = reservation_params[:user_name]
+    @reservation.user_name = user_name
 
     # Calculate the total price based on daily room prices
     room = Room.find(@reservation.room_id)
@@ -103,6 +57,6 @@ class ReservationsController < ApplicationController
   end
 
   def reservation_params
-    params.require(:reservation).permit(:room_id, :user_id, :start_date, :end_date, :num_nights, :total_price)
+    params.require(:reservation).permit(:room_id, :user_id, :start_date, :end_date, :num_nights, :total_price, :user_name)
   end
 end

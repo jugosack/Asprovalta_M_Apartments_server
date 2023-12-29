@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: self
 
   validates :name, presence: true
+  validates :phone_number, presence: true
   has_one_attached :avatar
   has_many :reservations
 end
