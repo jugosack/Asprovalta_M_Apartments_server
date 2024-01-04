@@ -27,14 +27,14 @@ class Reservation < ApplicationRecord
   ############################################################################
   def no_date_overlap
     return unless room.present? # Check if the room association is present
-  
+
     existing_reservations = room.reservations.where.not(id: id)
     overlapping_reservations = existing_reservations.where(
       '(start_date, end_date) OVERLAPS (?, ?)', start_date, end_date
     )
-  
+
     return unless overlapping_reservations.any?
-  
+
     errors.add(:base, 'Reservation dates overlap with existing reservation')
   end
   ###############################################################################
@@ -55,16 +55,18 @@ class Reservation < ApplicationRecord
   #   end
   # end
 
+  # rubocop:disable Style/GuardClause
   def no_nil_or_blank_or_zero_room_prices
     return unless @room
-  
+
     daily_prices = @room.room_daily_prices&.where(date: start_date..(end_date - 1.day))
-  
+    # rubocop:disable Style/IfUnlessModifier
     if daily_prices.blank? || daily_prices.any? { |price| price.nil? || price.zero? }
       errors.add(:base, 'No valid room prices available for the specified date range')
     end
+    # rubocop:enable Style/IfUnlessModifier
   end
-  
+  # rubocop:enable Style/GuardClause
 
   def calculate_total_price
     puts 'Calculating total price...'
@@ -96,12 +98,11 @@ class Reservation < ApplicationRecord
 
   def no_blocked_dates
     return unless room.present?
-  
+
     blocked_dates = room.blocked_dates.map(&:to_date)
-  
+
     return unless blocked_dates.any? { |date| date >= start_date && date < end_date }
-  
+
     errors.add(:base, 'Reservation dates include blocked dates')
   end
-  
 end
